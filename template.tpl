@@ -163,7 +163,8 @@ const handleAnonymityMode = (mode) => {
     
     case 'use_cookieless_mode':
       eventQueue(mode === 'deanonymize' ? ["enableCookies"] : ["disableCookies"]);
-      eventQueue(["setUserIsAnonymous", 1]);
+      if(mode === 'deanonymize') eventQueue(["setVisitorCookieTimeout", 33955200]);
+      eventQueue(mode === 'deanonymize' ? ["deanonymizeUser"] : ["setUserIsAnonymous", 1]);
       break;
   }
   
