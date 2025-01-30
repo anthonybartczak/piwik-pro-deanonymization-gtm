@@ -6,6 +6,11 @@ Make sure you have already installed the Piwik PRO Analytics template.
 
 ## Configuring the Piwik PRO Analytics template
 
+> [!NOTE]  
+> The session hash feature is controlled by the settings available in the Piwik PRO Administration module.
+> To either enable it or disable it for non-anonymous visitors, go to the Administration module, select your site, go to the Privacy tab and use the "Use a session hash" toggle.
+> The same toggle is available for anonymous visitors and can be found in the Consent settings section.
+
 1. In the `Basic tracking code` tag enter the `Privacy` section
 2. The `IP collection mode` field should be controlled by a variable, preferably a Lookup Table that will match your CMP consent state to the collection mode.
    Here's an example of how you can use this with the Cookie Information CMP platform.
