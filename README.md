@@ -25,7 +25,12 @@ Make sure you have already installed the Piwik PRO Analytics template.
 4. Select one of the options in `Select which data collection mode is used for anonymous visitors`
 5. (optional) Adjust additional settings
 
-## Creating a consent change event trigger for Cookie Information CMP
+## Configuring the template using different Consent Management Platforms:
+
+- [Cookie Information](#cookieinformation)
+- [OneTrust](#onetrust)
+
+## Cookie Information <a name="cookieinformation"></a>
 
 1. Create a `Custom HTML` tag and add the code below. This will generate a dataLayer event called `statistic_consent_change` when the visitor interacts with your consent form.
 
@@ -36,7 +41,7 @@ Make sure you have already installed the Piwik PRO Analytics template.
        function (event) {
          window.dataLayer = window.dataLayer || [];
          dataLayer.push({
-           event: "statistic_consent_change",
+           event: "consent_change",
          });
        }
      );
@@ -48,11 +53,35 @@ Make sure you have already installed the Piwik PRO Analytics template.
 
    ```javascript
    function() {
-   return window.CookieInformation.getConsentGivenFor('cookie_cat_statistic');
+    return window.CookieInformation.getConsentGivenFor('cookie_cat_statistic');
    }
    ```
 
    **Note:** This variable can be also used in the `Configuring the Piwik PRO Analytics template` guide as a source of truth for the consent state.
 
-4. For the deanonymization tag, go back to the `Piwik PRO Anonymization` tag and add a `Custom Event` trigger to it. Set `Event name` to `statistic_consent_change` and add a condition that will make the tag fire only if the variable above is set to `true`.
+4. For the deanonymization tag, go back to the `Piwik PRO Anonymization` tag and add a `Custom Event` trigger to it. Set the `Event name` to `consent_change` and add a condition that will make the tag fire only if the variable above is set to `true`.
 5. For the reanonymization tag, perform the same steps but use `false` for the condition instead.
+
+# OneTrust <a name="onetrust"></a>
+
+1. Create a `Custom HTML` tag and add the code below. This will generate a dataLayer event called `consent_change` when the visitor interacts with your consent form.
+
+   ```html
+   <script>
+     window.OneTrust.OnConsentChanged(function (event) {
+       window.dataLayer = window.dataLayer || [];
+       dataLayer.push({
+         event: "consent_change",
+       });
+     });
+   </script>
+   ```
+
+2. Make sure the tag is triggered on all pages, after the OneTrust CMP is added to the website/application.
+3. Create or use a variable that will return the current state of the OT consent groups. You can use [this template](https://github.com/taneli-salonen1/gtm-onetrust-consent-groups) created by Taneli Salonen. The other options I know about:
+
+   - Reading the `OneTrustGroupsUpdated` dataLayer event
+   - Reading the `OptanonConsent` cookie and looking for `groups` variable
+
+4. For the deanonymization tag, go back to the `Piwik PRO Anonymization` tag and add a `Custom Event` trigger to it. Set the `Event Name` to `consent_change` and add a condition that will only fire the tag if the above variable contains the desired consent group (e.g. `C0002`).
+5. For the reanonymization tag, perform the same steps but use the "doesn't contain" condition instead.
