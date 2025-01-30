@@ -4,9 +4,15 @@ This template allows you to map your CMP's state to Piwik PRO Anonymous tracking
 
 Make sure you have already installed the Piwik PRO Analytics template.
 
-## Configuring the Piwik PRO Analytics template
+- [Configuring the Piwik PRO Analytics template](analyticstemplate)
+- [Configuring the deanonymization/re-anonymization events](events)
+- [Template configuration for different consent management platforms](platforms)
+  - [Cookie Information](#cookieinformation)
+  - [OneTrust](#onetrust)
 
-> [!NOTE]  
+## Configuring the Piwik PRO Analytics template <a name="analyticstemplate"></a>
+
+> [!NOTE]
 > The session hash feature is controlled by the settings available in the Piwik PRO Administration module.
 > To either enable it or disable it for non-anonymous visitors, go to the Administration module, select your site, go to the Privacy tab and use the "Use a session hash" toggle.
 > The same toggle is available for anonymous visitors and can be found in the Consent settings section.
@@ -22,7 +28,7 @@ Make sure you have already installed the Piwik PRO Analytics template.
 
    ![IP collection variable](static/cookielifespan.png)
 
-## Configuring the deanonymization/re-anonymization events
+## Configuring the deanonymization/re-anonymization events <a name="events"></a>
 
 1. Add the template to your Google Tag Manager container
 2. Add a trigger to the tag. Different CMPs generate different events for the consent change event. The next section shows you an example of how you can set this up with Cookie Information.
@@ -30,12 +36,12 @@ Make sure you have already installed the Piwik PRO Analytics template.
 4. Select one of the options in `Select which data collection mode is used for anonymous visitors`
 5. (optional) Adjust additional settings
 
-## Configuring the template using different Consent Management Platforms:
+## Template configuration for different consent management platforms <a name="platforms"></a>
 
 - [Cookie Information](#cookieinformation)
 - [OneTrust](#onetrust)
 
-## Cookie Information <a name="cookieinformation"></a>
+### Cookie Information <a name="cookieinformation"></a>
 
 1. Create a `Custom HTML` tag and add the code below. This will generate a dataLayer event called `statistic_consent_change` when the visitor interacts with your consent form.
 
@@ -67,7 +73,7 @@ Make sure you have already installed the Piwik PRO Analytics template.
 4. For the deanonymization tag, go back to the `Piwik PRO Anonymization` tag and add a `Custom Event` trigger to it. Set the `Event name` to `consent_change` and add a condition that will make the tag fire only if the variable above is set to `true`.
 5. For the reanonymization tag, perform the same steps but use `false` for the condition instead.
 
-# OneTrust <a name="onetrust"></a>
+### OneTrust <a name="onetrust"></a>
 
 1. Create a `Custom HTML` tag and add the code below. This will generate a dataLayer event called `consent_change` when the visitor interacts with your consent form.
 
