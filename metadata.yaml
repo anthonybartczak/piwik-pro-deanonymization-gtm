@@ -1,0 +1,7 @@
+homepage: "https://anteriam.com"
+documentation: "https://anteriam.com"
+versions:
+  # Latest version
+  - sha: c42c156f7883a32e0f47a4dd3108660c1edd6a9b
+    changeNotes: |2
+      v1.0.0 (Jan 30 2025)
