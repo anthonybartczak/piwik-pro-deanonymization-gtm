@@ -1,5 +1,5 @@
-homepage: "https://anteriam.com"
-documentation: "https://anteriam.com"
+homepage: "https://anteriam.pl"
+documentation: "https://github.com/anthonybartczak/piwik-pro-deanonymization-gtm/blob/master/README.md"
 versions:
   # Latest version
   - sha: 3b2a7a9d51a68cb27fc32e14d61413fe2d994e68
